@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 
-import {Tasks} from '../api/tasks.js';
 import { Meteor } from 'meteor/meteor';
+import classnames from 'classnames';
 
 //Task Component, creates a single task
 export default class Task extends Component {
@@ -19,7 +19,13 @@ export default class Task extends Component {
   }
   
   render() {
-    const taskClassName = this.props.task.checked ? 'checked':'';
+    // Give tasks a different className when they are checked off,
+    // so that we can style them nicely in CSS
+    const taskClassName = classnames({
+      checked: this.props.task.checked,
+      private: this.props.task.private,
+    });
+    
     return (
       <li className={taskClassName}>
         <button className="delete" onClick={this.deleteThisTask.bind(this)}>
